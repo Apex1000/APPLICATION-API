@@ -31,6 +31,7 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
     USER_TYPE_CHOICES = (
+      (4, 'Worker'),
       (3, 'Secretary'),
       (2, 'Supervisor'),
       (1, 'Admin'),
@@ -45,7 +46,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    
+
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['first_name','last_name','phone_number','role']
 
