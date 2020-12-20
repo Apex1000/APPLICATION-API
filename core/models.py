@@ -12,6 +12,8 @@ class Company(models.Model):
     address = models.CharField(max_length=150)
     state = models.CharField(choices=STATES,max_length=50)
     pincode = models.IntegerField()
+    def __str__(self):
+        return self.name
 
 class Location(models.Model):
     supervisor = models.ForeignKey(User,on_delete=models.CASCADE)
@@ -20,6 +22,8 @@ class Location(models.Model):
     address = models.CharField(max_length=150)
     state = models.CharField(choices=STATES,max_length=50)
     pincode = models.IntegerField()
+    def __str__(self):
+        return self.name
 
 class Field(models.Model):
     secretary = models.ForeignKey(User,on_delete=models.CASCADE)
@@ -28,3 +32,5 @@ class Field(models.Model):
     address = models.CharField(max_length=150)
     state = models.CharField(choices=STATES,max_length=50)
     pincode = models.IntegerField()
+    def __str__(self):
+        return self.name

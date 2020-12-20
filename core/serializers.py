@@ -21,3 +21,13 @@ class FieldRegistration(serializers.ModelSerializer):
     class Meta:
         model = Field
         fields = '__all__'
+
+class GetField(serializers.ModelSerializer):
+    class Meta:
+        model = Field
+        fields = '__all__'
+
+class GetLocation(serializers.ModelSerializer):
+    class Meta:
+        model = Location
+        fields = '__all__'

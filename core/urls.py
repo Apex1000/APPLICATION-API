@@ -5,4 +5,6 @@ urlpatterns = [
     path('create-company/',CompanyRegistration.as_view(),name="create_company"),
     path('create-location/',LocationRegistration.as_view(),name="create_location"),
     path('create-field/',FieldRegistration.as_view(),name="create_field"),
+    path('get-fields/',GetFields.as_view(),name="get-fields"),
+    path('get-locations/',GetLocation.as_view(),name="get-locations"),
 ]
