@@ -1,3 +1,3 @@
 release: python manage.py makemigrations
 release: python manage.py migrate
-web: gunicorn WaiterBee.wsgi
+web: gunicorn application.wsgi
