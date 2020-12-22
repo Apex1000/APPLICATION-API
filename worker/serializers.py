@@ -6,6 +6,11 @@ class WorkerFieldSerializer(serializers.ModelSerializer):
         model = Worker
         fields = '__all__'
 
+class AllActivitiesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Activity
+        fields = ('id','activity','field')
+
 class ActivitiesSerializer(serializers.ModelSerializer):
     user = serializers.CharField(source='user.username',read_only=True)
     field = serializers.CharField(source='field.name',read_only=True)

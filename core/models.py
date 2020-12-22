@@ -16,7 +16,7 @@ class Company(models.Model):
         return self.name
 
 class Location(models.Model):
-    supervisor = models.ForeignKey(User,on_delete=models.CASCADE)
+    secretary = models.ForeignKey(User,on_delete=models.CASCADE)
     company = models.ForeignKey(Company,on_delete=models.CASCADE)
     name = models.CharField(max_length=220)
     address = models.CharField(max_length=150)
@@ -26,7 +26,7 @@ class Location(models.Model):
         return self.name
 
 class Field(models.Model):
-    secretary = models.ForeignKey(User,on_delete=models.CASCADE)
+    supervisor = models.ForeignKey(User,on_delete=models.CASCADE)
     location = models.ForeignKey(Location,on_delete=models.CASCADE)
     name = models.CharField(max_length=220)
     address = models.CharField(max_length=150)

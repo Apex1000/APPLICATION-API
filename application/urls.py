@@ -33,6 +33,8 @@ urlpatterns = [
     path('auth/', include('authentication.urls')),
     path('coreadmin/', include('core.urls')),
     path('worker/',include('worker.urls')),
+    path('secretary', include('secretary.urls')),
+    path('supervisor', include('supervisor.urls')),
     
     path('', schema_view.with_ui('swagger',
                                  cache_timeout=0), name='schema-swagger-ui'),

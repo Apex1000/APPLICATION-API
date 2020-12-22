@@ -1,5 +1,4 @@
 from django.db import models
-
 # Create your models here.
 from django.contrib.auth.models import (
     AbstractBaseUser, BaseUserManager, PermissionsMixin)
@@ -31,15 +30,15 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
     USER_TYPE_CHOICES = (
-      (4, 'Worker'),
-      (3, 'Secretary'),
-      (2, 'Supervisor'),
-      (1, 'Admin'),
+      ('WORKER', 'Worker'),
+      ('SUPERVISOR', 'Supervisor'),
+      ('SECRETARY', 'Secretary'),
+      ('ADMIN', 'Admin'),
     )
     first_name = models.CharField(max_length=70)
     last_name = models.CharField(max_length=70)
     phone_number = models.CharField(max_length=10)
-    role = models.PositiveSmallIntegerField(choices=USER_TYPE_CHOICES)
+    role = models.CharField(choices=USER_TYPE_CHOICES,max_length=50)
     username = models.CharField(max_length=255, unique=True, db_index=True)    
     is_verified = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)

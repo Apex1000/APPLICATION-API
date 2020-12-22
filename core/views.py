@@ -3,11 +3,12 @@ from rest_framework import generics, status, views, permissions
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from .models import User
 from .serializers import *
+from core.permission import *
 from rest_framework.response import Response
 
 class CompanyRegistration(generics.GenericAPIView):
     serializer_class = CompanyRegistration
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticated,IsAdminUser)
     def post(self,request):
         data = request.data
         serializer = self.serializer_class(data=data)
