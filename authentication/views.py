@@ -46,11 +46,11 @@ class UserDetails(generics.ListCreateAPIView):
     queryset = UserDetails.objects.all()
     def perform_create(self,serializer):
         return serializer.save(user=self.request.user)
-    
+
     def get_queryset(self):
         return self.queryset.filter(user=self.request.user)
 
-class IsUserVerified(generics.GenericAPIView):
+class IsUserVerified(views.APIView):
     permission_classes = (permissions.IsAuthenticated,)
     def get(self,request):
         user = {

@@ -19,7 +19,7 @@ class CompanyRegistration(generics.GenericAPIView):
 
 class LocationRegistration(generics.GenericAPIView):
     serializer_class = LocationRegistration
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticated,IsAdminUser)
     def post(self,request):
         data = request.data
         serializer = self.serializer_class(data=data)
@@ -30,7 +30,7 @@ class LocationRegistration(generics.GenericAPIView):
 
 class FieldRegistration(generics.GenericAPIView):
     serializer_class = FieldRegistration
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticated,IsAdminUser)
     def post(self,request):
         data = request.data
         serializer = self.serializer_class(data=data)
@@ -41,7 +41,7 @@ class FieldRegistration(generics.GenericAPIView):
 
 class GetLocation(generics.ListAPIView):
     serializer_class = GetLocation
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticated,IsAdminUser)
     queryset = Field.objects.all()
     
     def get_queryset(self):
@@ -49,8 +49,17 @@ class GetLocation(generics.ListAPIView):
 
 class GetFields(generics.ListAPIView):
     serializer_class = GetField
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticated,IsAdminUser)
     queryset = Field.objects.all()
     
     def get_queryset(self):
         return self.queryset.filter(secretary=self.request.user)
+
+class ActivitiesAPI(RetrieveUpdateDestroyAPIView):
+    serializer_class = AdminActivitiesSerializer
+    permission_classes = (permissions.IsAuthenticated,IsAdminUser)
+    queryset = Activity.objects.all()
+    lookup_field = "id"
+
+    def get_queryset(self):
+        return self.queryset

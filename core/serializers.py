@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import *
 from django.contrib import auth
-
+from worker.models import Activity
 class CompanyRegistration(serializers.ModelSerializer):
     class Meta:
         model = Company
@@ -26,3 +26,10 @@ class GetLocation(serializers.ModelSerializer):
     class Meta:
         model = Location
         fields = '__all__'
+
+class AdminActivitiesSerializer(serializers.ModelSerializer):
+    user = serializers.CharField(source='user.username',read_only=True)
+    field = serializers.CharField(source='field.field_name',read_only=True)
+    class Meta:
+        model = Activity
+        fields = ('id','activity','created','user','field')
