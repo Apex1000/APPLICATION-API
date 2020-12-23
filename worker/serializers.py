@@ -13,7 +13,7 @@ class AllActivitiesSerializer(serializers.ModelSerializer):
 
 class ActivitiesSerializer(serializers.ModelSerializer):
     user = serializers.CharField(source='user.username',read_only=True)
-    field = serializers.CharField(source='field.name',read_only=True)
+    field = serializers.CharField(source='field.field_name',read_only=True)
     class Meta:
         model = Activity
         fields = ('id','activity','created','user','field')

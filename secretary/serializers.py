@@ -1,9 +1,9 @@
 from rest_framework import serializers
-from core.models import Location
+from core.models import Location,Field
 from django.contrib import auth
 
-class SecretaryLocation(serializers.ModelSerializer):
-    user = serializers.CharField(source='secretary.username',read_only=True)
+class SecretaryLocationAll(serializers.ModelSerializer):
+    location = serializers.StringRelatedField(many=True)
     class Meta:
         model = Location
-        fields = ('user','name')
+        fields = ('location_name','location')

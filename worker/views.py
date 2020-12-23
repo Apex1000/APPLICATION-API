@@ -7,7 +7,7 @@ from core.permission import *
 from rest_framework.response import Response
 
 class WorkerFields(generics.GenericAPIView):
-    permission_classes = [permissions.IsAuthenticated,IsUserAdminOrSupervisorOrSecretary]
+    permission_classes = (permissions.IsAuthenticated,IsUserAdminOrSupervisorOrSecretary)
     serializer_class = WorkerFieldSerializer
     def post(self,request):
         data = request.data
@@ -28,7 +28,7 @@ class AllActivity(generics.ListCreateAPIView):
         return serializer.save(user=self.request.user)
 
 class ActivityUpdate(generics.RetrieveAPIView):
-    permission_classes = [permissions.IsAuthenticated,IsWorkerUser,]
+    permission_classes = (permissions.IsAuthenticated,IsWorkerUser,)
     serializer_class = ActivitiesSerializer
     queryset = Activity.objects.all()
     lookup_field = "id"
@@ -38,7 +38,7 @@ class ActivityUpdate(generics.RetrieveAPIView):
 
 
 class ActivityCreateUpdate(generics.UpdateAPIView):
-    permission_classes = [permissions.IsAuthenticated,IsWorkerUser,IsOwner]
+    permission_classes = (permissions.IsAuthenticated,IsWorkerUser,IsOwner,)
     serializer_class = ActivitiesSerializer
     queryset = Activity.objects.all()
     lookup_field = "id"

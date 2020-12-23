@@ -40,8 +40,59 @@ class UserLogout(generics.GenericAPIView):
         serializer.save()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-class UserDetails(ListCreateAPIView):
+class UserDetails(generics.ListCreateAPIView):
     serializer_class = UserDetailsSerializer
     permission_classes = (permissions.IsAuthenticated,)
+    queryset = UserDetails.objects.all()
     def perform_create(self,serializer):
         return serializer.save(user=self.request.user)
+    
+    def get_queryset(self):
+        return self.queryset.filter(user=self.request.user)
+
+class IsUserVerified(generics.GenericAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
+    def get(self,request):
+        user = {
+            'username':self.request.user.username,
+            'is_verified': self.request.user.is_verified
+        }
+        return Response(user, status=status.HTTP_200_OK)
+
+class UserProfile(generics.ListAPIView):
+    serializer_class = UserProfileSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+    queryset = User.objects.all()
+    
+    def get_queryset(self):
+        return self.queryset
+
+class SetNewPasswordAPIView(generics.UpdateAPIView):
+        serializer_class = SetNewPasswordSerializer
+        model = User
+        permission_classes = (permissions.IsAuthenticated,)
+
+        def get_object(self, queryset=None):
+            obj = self.request.user
+            return obj
+
+        def update(self, request, *args, **kwargs):
+            self.object = self.get_object()
+            serializer = self.get_serializer(data=request.data)
+
+            if serializer.is_valid():
+                # set_password also hashes the password that the user will get
+                self.object.set_password(serializer.data.get("new_password"))
+                if not self.object.is_verified:
+                    self.object.is_verified = True
+                self.object.save()
+                response = {
+                    'status': 'success',
+                    'code': status.HTTP_200_OK,
+                    'message': 'Password updated successfully',
+                    'data': []
+                }
+
+                return Response(response)
+
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

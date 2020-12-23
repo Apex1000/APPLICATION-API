@@ -61,7 +61,6 @@ class LoginSerializer(serializers.ModelSerializer):
             raise AuthenticationFailed('Invalid credentials, try again')
         if not user.is_active:
             raise AuthenticationFailed('Account disabled, contact admin')
-
         return {
             'username': user.username,
             'tokens': user.tokens
@@ -89,3 +88,17 @@ class UserDetailsSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserDetails 
         fields = ('address','state','pincode','alternative_number','parents_name','parents_number','identification_id','qualification')
+
+class SetNewPasswordSerializer(serializers.Serializer):
+    model = User
+
+    """
+    Serializer for password change endpoint.
+    """
+    new_password = serializers.CharField(required=True)
+
+class UserProfileSerializer(serializers.Serializer):
+    # address = serializers.CharField(source='user.username',read_only=True)
+    class Meta:
+        model = User
+        fields = '__all__'

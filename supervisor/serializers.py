@@ -6,4 +6,4 @@ class SupervisorField(serializers.ModelSerializer):
     user = serializers.CharField(source='supervisor.username',read_only=True)
     class Meta:
         model = Field
-        fields = ('user','name')
+        fields = ('user','field_name')

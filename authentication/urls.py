@@ -8,4 +8,7 @@ urlpatterns = [
     path('logout/',UserLogout.as_view(),name='logout'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('user-details/',UserDetails.as_view(),name='user_details'),
+    path('verified-user/',IsUserVerified.as_view(),name='verified_user'),
+    path('password-reset-complete', SetNewPasswordAPIView.as_view(),
+         name='password-reset-complete')
 ]

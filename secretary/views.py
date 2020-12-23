@@ -1,14 +1,16 @@
 from django.shortcuts import render
 from rest_framework import generics, status, views, permissions
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
-from core.models import Location
+from core.models import Location, Field
+from authentication.models import User
 from .serializers import *
 from core.permission import *
+from core.permission import IsSecretaryUser
 from rest_framework.response import Response
 
 class GetLocation(generics.ListAPIView):
-    permission_classes = [permissions.IsAuthenticated,]
-    serializer_class = SecretaryLocation
+    permission_classes = [permissions.IsAuthenticated,IsSecretaryUser]
+    serializer_class = SecretaryLocationAll
     queryset = Location.objects.all()
 
     def get_queryset(self):

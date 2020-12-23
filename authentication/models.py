@@ -11,7 +11,7 @@ class UserManager(BaseUserManager):
     def create_user(self, username,first_name,last_name,role,phone_number, password=None):
         if username is None:
             raise TypeError('Users should have a username')
-        
+
         user = self.model(username=username,first_name=first_name,last_name=last_name,role=role,phone_number=phone_number)
         user.set_password(password)
         user.save()
@@ -39,7 +39,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(max_length=70)
     phone_number = models.CharField(max_length=10)
     role = models.CharField(choices=USER_TYPE_CHOICES,max_length=50)
-    username = models.CharField(max_length=255, unique=True, db_index=True)    
+    username = models.CharField(max_length=255, unique=True, db_index=True)
     is_verified = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
@@ -76,7 +76,7 @@ class UserDetails(models.Model):
       ('TP', 'Supervisor'),
       ('DP', 'Admin'),
     )
-    user = models.OneToOneField(User,on_delete=models.CASCADE)
+    user = models.OneToOneField(User,on_delete=models.CASCADE,related_name='user')
     address = models.CharField(max_length=150)
     state = models.CharField(choices=STATES,max_length=50)
     pincode = models.IntegerField()
@@ -85,6 +85,6 @@ class UserDetails(models.Model):
     parents_number = models.IntegerField()
     identification_id = models.CharField(max_length=50)
     qualification = models.CharField(choices=QUALIFICATIONS,max_length=20)
-    
+
     def __str__(self):
         return self.user.username
