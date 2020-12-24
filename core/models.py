@@ -7,11 +7,17 @@ STATES = (
       ('TP', 'Supervisor'),
       ('DP', 'Admin'),
     )
+
 class Company(models.Model):
+    username = models.CharField(max_length=150)
     company_name = models.CharField(max_length=150)
+    company_phone_number = models.CharField(max_length=150,unique=True,)
+    company_email = models.CharField(max_length=150,unique=True)
+    password = models.CharField(max_length=150)
     address = models.CharField(max_length=150)
     state = models.CharField(choices=STATES,max_length=50)
     pincode = models.IntegerField()
+
     def __str__(self):
         return self.company_name
 

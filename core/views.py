@@ -8,7 +8,6 @@ from rest_framework.response import Response
 
 class CompanyRegistration(generics.GenericAPIView):
     serializer_class = CompanyRegistration
-    permission_classes = (permissions.IsAuthenticated,IsAdminUser)
     def post(self,request):
         data = request.data
         serializer = self.serializer_class(data=data)
