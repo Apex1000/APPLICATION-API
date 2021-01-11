@@ -31,11 +31,11 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include('authentication.urls')),
-    path('coreadmin/', include('core.urls')),
+    path('dashboard/', include('core.urls')),
     path('worker/',include('worker.urls')),
-    path('secretary', include('secretary.urls')),
-    path('supervisor', include('supervisor.urls')),
-    
+    path('secretary/', include('secretary.urls')),
+    path('supervisor/', include('supervisor.urls')),
+    path('superadmin/',include('superadmin.urls')),
     path('', schema_view.with_ui('swagger',
                                  cache_timeout=0), name='schema-swagger-ui'),
     path('api/api.json/', schema_view.without_ui(cache_timeout=0),

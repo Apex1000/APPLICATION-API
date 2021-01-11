@@ -18,6 +18,7 @@ class WorkerFields(generics.GenericAPIView):
         return Response(worker_data,status=status.HTTP_201_CREATED)
 
 class AllActivity(generics.ListCreateAPIView):
+    permission_classes = (permissions.IsAuthenticated,IsUserAdminOrSupervisorOrSecretaryOrWorker)
     serializer_class = AllActivitiesSerializer
     queryset = Activity.objects.all()
 

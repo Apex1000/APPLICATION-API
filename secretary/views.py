@@ -15,3 +15,11 @@ class GetLocation(generics.ListAPIView):
 
     def get_queryset(self):
         return self.queryset.filter(secretary = self.request.user)
+
+class Demo(views.APIView):
+    def post(self,request):
+        data = request.data
+        d = {
+            'user':(self.request.user.company.username)
+        }
+        return Response(d,status=status.HTTP_201_CREATED)

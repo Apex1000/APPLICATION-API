@@ -3,11 +3,6 @@ from .models import *
 from django.contrib import auth
 from worker.models import Activity
 
-class CompanyRegistration(serializers.ModelSerializer):
-    class Meta:
-        model = Company
-        fields = '__all__'
-    
 class LocationRegistration(serializers.ModelSerializer):
     class Meta:
         model = Location

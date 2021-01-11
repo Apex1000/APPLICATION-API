@@ -43,7 +43,7 @@ class UserLogout(generics.GenericAPIView):
 class UserDetails(generics.ListCreateAPIView):
     serializer_class = UserDetailsSerializer
     permission_classes = (permissions.IsAuthenticated,)
-    queryset = UserDetails.objects.all()
+    queryset = UserDetail.objects.all()
     def perform_create(self,serializer):
         return serializer.save(user=self.request.user)
 

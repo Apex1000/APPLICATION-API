@@ -7,6 +7,7 @@ from rest_framework_simplejwt.tokens import RefreshToken, TokenError
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils.encoding import smart_str, force_str, smart_bytes, DjangoUnicodeDecodeError
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from django.contrib.auth.models import update_last_login
 
 
 class UserCreateSerializer(UserCreateSerializer):
@@ -18,7 +19,7 @@ class UserCreateSerializer(UserCreateSerializer):
     }
     class Meta(UserCreateSerializer.Meta):
         model = User
-        fields = ('id','username','first_name','last_name','phone_number',"role","password")
+        fields = ('id','username','first_name','last_name','phone_number','userrole',"password")
 
     def validate(self,attrs):
         phone_number = attrs.get('phone_number','')
@@ -40,7 +41,7 @@ class LoginSerializer(serializers.ModelSerializer):
 
     def get_tokens(self, obj):
         user = User.objects.get(username=obj['username'])
-
+        update_last_login(None, user)
         return {
             'refresh': user.tokens()['refresh'],
             'access': user.tokens()['access']
@@ -86,7 +87,7 @@ class LogoutSerializer(serializers.Serializer):
 
 class UserDetailsSerializer(serializers.ModelSerializer):
     class Meta:
-        model = UserDetails 
+        model = UserDetail
         fields = ('address','state','pincode','alternative_number','parents_name','parents_number','identification_id','qualification')
 
 class SetNewPasswordSerializer(serializers.Serializer):
